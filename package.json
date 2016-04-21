@@ -26,6 +26,7 @@
     "electron-prebuilt": "^0.37.0"
   },
   "dependencies": {
-    "each-async": "^1.1.1"
+    "each-async": "^1.1.1",
+    "superagent": "^1.8.3"
   }
 }

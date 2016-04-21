@@ -2,6 +2,14 @@
 var drop = require('component~drop-anywhere@0.7.0');
 var Spinner = require('component~spinner@1.1.1')
 var each = node('each-async');
+// import remote from 'remote';
+var remote = node('remote');
+var request = node('superagent');
+
+
+window.remote = remote;
+
+
 
 
 // console.log("SPinner", Spinner);
@@ -67,7 +75,12 @@ drop(function (e) {
     each(e.items, function (item, i, done) {
       // do sth (err) =>
       ret.push(item);
-      done();
+      request
+        .post('http://cmmc.xyz:8000/hello2')
+        .end(function(err, res){
+          // console.log(err, res);
+          done();
+        });
 
       console.log("EACH", i, item, "ret", ret);
 
