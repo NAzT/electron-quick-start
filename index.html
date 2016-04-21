@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="build/build.css" rel="stylesheet">
+    <script>window.node = window.require;</script>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <script src="build/build.js"></script>
   </body>
 </html>

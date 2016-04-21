@@ -1,0 +1,14 @@
+{
+  "name": "cmmc_drop",
+  "dependencies": {
+    "necolas/normalize.css": "^3.0.2",
+    "component/drop-anywhere": "~0.7.0",
+    "component/spinner": "^1.1.1"
+  },
+  "scripts": [
+    "app.js"
+  ],
+  "styles": [
+    "app.css"
+  ]
+}
