@@ -4,6 +4,7 @@ var Spinner = require('component~spinner@1.1.1')
 var each = node('each-async');
 // import remote from 'remote';
 var remote = node('remote');
+const cheerio = node("cheerio");
 var request = node('superagent');
 
 
@@ -75,13 +76,28 @@ drop(function (e) {
     each(e.items, function (item, i, done) {
       // do sth (err) =>
       ret.push(item);
+
+      // request
+      //   .post('http://cmmc.xyz:8000/hello2')
+      //   .end(function(err, res){
+      //     // console.log(err, res);
+      //     done();
+      //   });
+
+      console.log(item.path);
       request
-        .post('http://cmmc.xyz:8000/hello2')
-        .end(function(err, res){
-          // console.log(err, res);
+        .post('http://www.majer.ch/lcd/adf_bitmap.php')
+        .type('form')
+        .send('MAX_FILE_SIZE=1000000')
+        .attach('uploadedfile', item.path)
+        .end(function(err, incomming){
+            console.log(err, incomming);
+            console.log(incomming.res.text);
+            $ = cheerio.load(incomming.res.text);
+            window.$ = $;
+            console.log($);
           done();
         });
-
       console.log("EACH", i, item, "ret", ret);
 
     }, function (err) {
