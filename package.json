@@ -28,6 +28,7 @@
   "dependencies": {
     "cheerio": "^0.20.0",
     "each-async": "^1.1.1",
+    "mqtt": "^1.8.0",
     "superagent": "^1.8.3"
   }
 }

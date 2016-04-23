@@ -84,6 +84,7 @@ drop(function (e) {
       //     done();
       //   });
 
+      var mqtt = node("mqtt");
       console.log(item.path);
       request
         .post('http://www.majer.ch/lcd/adf_bitmap.php')
@@ -91,14 +92,29 @@ drop(function (e) {
         .send('MAX_FILE_SIZE=1000000')
         .attach('uploadedfile', item.path)
         .end(function(err, incomming){
-            console.log(err, incomming);
-            console.log(incomming.res.text);
+            // console.log(err, incomming);
+            // console.log(incomming.res.text);
             $ = cheerio.load(incomming.res.text);
             window.$ = $;
-            console.log($);
+            var out = $('body').text().split("const unsigned char bitmap [] PROGMEM=")[1].trim().split(",").slice(1, -1);
+            var result = _.map(out, function(v, i) { return v.trim()   })
+            var json = { pixel: result }
+            console.log(JSON.stringify(json));
+            var client = mqtt.connect("mqtt://mqtt.espert.io");
+
+            client.on('connect', function () {
+              // client.publish('ESPert/15649517/Command', JSON.stringify(json));
+              client.publish("ESPert/15649517/Command", "hello");
+              console.log("PUBLISHED");
+              // _.each(json.pixel, function(v, item) {
+              //   // console.log(i, v);
+              //   // client.publish('ESPert/15649517/Command', String(v));
+              // });
+            });
+
           done();
         });
-      console.log("EACH", i, item, "ret", ret);
+      // console.log("EACH", i, item, "ret", ret);
 
     }, function (err) {
         if (err) {
